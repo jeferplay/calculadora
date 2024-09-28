@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Economia Solar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('fundo.png'); /* URL da imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para contraste */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 50px auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .company-info {
+            margin-top: 20px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de Economia Solar</h1>
+    <label for="monthlyConsumption">Consumo Mensal (kWh):</label>
+    <input type="number" id="monthlyConsumption" placeholder="Ex: 300" required>
+
+    <button onclick="calculateSolarSavings()">Calcular Economia</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="company-info">
+        <p><strong>Sua Empresa</strong></p>
+        <p>Fornecendo soluções em energia solar para um futuro sustentável.</p>
+        <p>Entre em contato: vpsolar.com</p>
+    </div>
+</div>
+
+<script>
+    function calculateSolarSavings() {
+        const monthlyConsumption = parseFloat(document.getElementById('monthlyConsumption').value);
+        
+        const hoursOfSunPerDay = 5;
+        const platePower = 550;
+        const daysInMonth = 30;
+        
+        const monthlyGenerationPerPlate = (platePower / 1000) * hoursOfSunPerDay * daysInMonth;
+
+        const numberOfPlatesNeeded = Math.ceil(monthlyConsumption / monthlyGenerationPerPlate);
+        
+        const areaPerPlate = 1.6;
+        const totalArea = numberOfPlatesNeeded * areaPerPlate;
+
+        const resultText = `
+            Para consumir ${monthlyConsumption} kWh por mês:
+            <br>1 placa de 550W gera aproximadamente ${monthlyGenerationPerPlate.toFixed(2)} kWh por mês.
+            <br>Você precisará de ${numberOfPlatesNeeded} placas.
+            <br>A área total necessária será de aproximadamente ${totalArea.toFixed(2)} m².
+        `;
+        
+        document.getElementById('result').innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>
